@@ -2,12 +2,16 @@ const os = require("os");
 const express = require('express');
 const hbs = require('hbs');
 const fs = require('fs');
+const path = require('path');
 
 const port = process.env.PORT || 3000;
+const partialsPath = path.join(__dirname, 'views', 'partials');
+console.log(`partialsPath = ${partialsPath}`);
 
 var app = express(); // creates an express app
 
-hbs.registerPartials(__dirname + '\\views\\partials');
+
+hbs.registerPartials(partialsPath);
 
 hbs.registerHelper('getCurrentYear', () => {
     return new Date().getFullYear()
