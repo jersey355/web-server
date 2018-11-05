@@ -5,13 +5,11 @@ const fs = require('fs');
 const path = require('path');
 
 const port = process.env.PORT || 3000;
-const partialsPath = path.join(__dirname, 'views', 'partials');
-console.log(`partialsPath = ${partialsPath}`);
 
 var app = express(); // creates an express app
 
 
-hbs.registerPartials(partialsPath);
+hbs.registerPartials(path.join(__dirname, 'views', 'partials'));
 
 hbs.registerHelper('getCurrentYear', () => {
     return new Date().getFullYear()
@@ -53,16 +51,21 @@ app.use(express.static(__dirname + '/public'));
 // set up routes:
 
 app.get('/', (req, res) => {
-    res.render('generic.hbs', {
+    res.render('home.hbs', {
         title: 'Home',
-        heading: `Welcome ${os.userInfo().username}!`
+        userName: os.userInfo().username
     });
 })
 
 app.get('/about', (req, res) => {
     res.render('generic.hbs', {
-        title: 'About',
-        heading: 'About'
+        title: 'About'
+    });
+});
+
+app.get('/projects', (req, res) => {
+    res.render('generic.hbs', {
+        title: 'Projects'
     });
 });
 
